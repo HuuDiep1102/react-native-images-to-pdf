@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
+import android.graphics.Color;
+
 import android.net.Uri;
 import android.util.Log;
 
@@ -61,14 +63,22 @@ public class ImagesPdfModule extends ReactContextBaseJavaModule {
             throw new Exception(imagePath + " cannot be decoded into a bitmap.");
           }
 
+          int pageWidth = 596;
+          int pageHeight = 842;
+
           PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo
-            .Builder(bitmap.getWidth(), bitmap.getHeight(), i + 1)
+            .Builder(pageWidth, pageHeight, i + 1)
             .create();
 
           PdfDocument.Page page = pdfDocument.startPage(pageInfo);
 
           Canvas canvas = page.getCanvas();
-          canvas.drawBitmap(bitmap, 0, 0, null);
+          canvas.drawColor(Color.WHITE);
+
+          float centerX = (pageWidth - bitmap.getWidth()) / 2;
+          float centerY = (pageHeight - bitmap.getHeight()) / 2;
+
+          canvas.drawBitmap(bitmap, centerX, centerY, null);
 
           pdfDocument.finishPage(page);
         }
