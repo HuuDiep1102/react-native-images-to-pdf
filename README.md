@@ -1,3 +1,6 @@
+# True Update
+Issue: Khi tạo pdf thì file pdf sẽ lưu xuống bộ nhớ của app tuỳ đường dẫn nhưng điều này sẽ dẫn đến file sẽ tồn tại mãi trong bộ nhớ (ví dụ ở đây là cache) => Dẫn đến tình trạng tràn bộ nhớ cache ảnh hưởng âm thầm mặc dù ng dùng có thể xoá đi. Nhưng vẫn sẽ ảnh hưởng đến hiệu năng.
+Resolve: Chuyển đổi pdf và trả về base64 
 # react-native-images-to-pdf
 
 [![badge](https://img.shields.io/npm/v/react-native-images-to-pdf.svg?style=flat-square)](https://www.npmjs.com/package/react-native-images-to-pdf)
@@ -40,8 +43,7 @@ Returns a Promise that resolves to a `string` representing the output path of th
 
 | Option            | Type       | Description                                                                                                                 |
 | ----------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `imagePaths`      | `string[]` | An array of paths to the images that should be included in the PDF. Images will be added to the PDF in the order specified. |
-| `outputDirectory` | `string`   | The path to the directory where the output PDF file should be saved.                                                        |
+| `imagePaths`      | `string[]` | An array of paths to the images that should be included in the PDF. Images will be added to the PDF in the order specified.                                                 |
 | `outputFilename`  | `string`   | The name of the output PDF file.                                                                                            |
 
 ## Example
