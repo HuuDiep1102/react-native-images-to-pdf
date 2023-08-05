@@ -26,7 +26,11 @@ class ImagesPdf: NSObject {
                                        outputDirectory: outputDirectory,
                                        outputFilename: outputFilename)
 
+//       let base64Pdf = data.base64EncodedString()
+
       resolve(outputUrl.absoluteString)
+
+//      deleteFile(outputUrl: outputUrl)
     } catch CreatePdfError.imagePathsIsEmpty {
       reject(E_IMAGES_PATHS_IS_EMPTY,
              "imagePaths is empty.",
@@ -72,7 +76,7 @@ class ImagesPdf: NSObject {
         }
 
         if let image = image {
-          let pageSize = CGSize(width: 596, height: 842)
+          let pageSize = CGSize(width: 596, height: 842) // Kích thước khổ giấy A4
           let bounds = CGRect(x: 0, y: 0, width: pageSize.width, height: pageSize.height)
           let imageRect = CGRect(x: (bounds.width - image.size.width) / 2, y: (bounds.height - image.size.height) / 2, width: image.size.width, height: image.size.height)
           context.beginPage(withBounds: bounds, pageInfo: [:])
@@ -158,4 +162,14 @@ class ImagesPdf: NSObject {
 
     return pdfCreateOptions
   }
+
+  @objc
+  func deleteFile(outputUrl: URL) {
+      do {
+        let fileManager = FileManager.default
+        try fileManager.removeItem(at: outputUrl)
+      } catch {
+        print("Error deleting file: \(error.localizedDescription)")
+      }
+    }
 }
