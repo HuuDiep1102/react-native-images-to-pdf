@@ -23,8 +23,16 @@ export interface CreatePdfOptions {
   outputFilename: string;
 }
 
+export interface URLString {
+  url: string;
+}
+
 export function createPdf(options: CreatePdfOptions): Promise<string> {
   return ImagesPdf.createPdf(options);
+}
+
+export function deleteFile(outputUrl: URLString): Promise<void> {
+  return ImagesPdf.deleteFile(outputUrl.url);
 }
 
 export function getDocumentsDirectory(): Promise<string> {
